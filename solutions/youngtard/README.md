@@ -1,6 +1,6 @@
 # First Place Award for An African Citizen
 
-This solution won the the **First place award for an African citizen currently residing on the continent** and acheived the second top score of 1.168877091 in the competiton. 
+This solution won the the **First place award for an African citizen currently residing on the continent** and achieved the second top score of 1.168877091 in the competiton. 
 
 ## Winner
 
