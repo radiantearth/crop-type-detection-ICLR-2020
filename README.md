@@ -13,7 +13,7 @@ This competition was part of the Computer Vision for Agriculture (CV4A) Workshop
 ## Results
 
 |Team 	| Competition Score 	| Overall Accuracy 	|
-------------------------------------------------------
+|-------|-----------------------|-------------------|
 |KarimAmer 	| 1.102264609 		|  |
 |youngtard 	| 1.168877091 		|  |
 |Be_CarEFuL 	| 1.174099923 		|  |
