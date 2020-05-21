@@ -1,0 +1,72 @@
+---
+title: "ICLR Crop detection"
+author: "Dr Fad"
+date: "2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Load libraries
+
+```{r cars}
+
+## Import packages
+library(ggplot2)
+library(gridExtra)
+library(repr)
+library(dplyr)
+library(caret)
+library(e1071)
+library(MLmetrics)
+library(klaR)
+library(gdalUtils)
+library(raster)
+library(sqldf)
+library(Matrix)
+library(beepr)
+
+options(repr.plot.width=4, repr.plot.height=4)
+```
+
+## Load submissions
+```{r}
+
+ICLR_Submit_SMOTE_QhCpzd44_1700 <- read.csv("C:/Users/A221572/Documents/ICLR Crop detection Winning solution by Threshold Alchemi and DrFad/ICLR_Submit_SMOTE_QhCpzd44_1700.csv")#1.28622
+ICLR_Submit_Feb2804_opt_1.1833 <- read.csv("C:/Users/A221572/Documents/ICLR Crop detection Winning solution by Threshold Alchemi and DrFad/ICLR_Submit_Feb2804_opt_1.1833.csv")#1.28584
+Band_GE_0.9to1Rto0_0.85to1_Max56to1R0 <- read.csv("C:/Users/A221572/Documents/ICLR Crop detection Winning solution by Threshold Alchemi and DrFad/Band GE 0.9to1Rto0 0.85to1 Max56to1R0.csv")#1.160
+Team0.9to1R0_0.85to1_567Maxto1 <- read.csv("C:/Users/A221572/Documents/ICLR Crop detection Winning solution by Threshold Alchemi and DrFad/Team 0.9to1R0 0.85to1 567Maxto1.csv")#From train and test sent to Alchemi ,with py get 1.1482
+ICLR_Catboost_1700_1.1603 <- read.csv("C:/Users/A221572/Documents/ICLR Crop detection Winning solution by Threshold Alchemi and DrFad/ICLR_Catboost_1700_1.1603.csv")
+
+
+```
+
+
+##Ensemble
+Use the full smote of the best only
+7210
+```{r}
+colnames(ICLR_Submit_SMOTE_QhCpzd44_1700) <- colnames(ICLR_Submit_Feb2804_opt_1.1833)
+colnames(Band_GE_0.9to1Rto0_0.85to1_Max56to1R0) <- colnames(ICLR_Submit_Feb2804_opt_1.1833)
+colnames(Team0.9to1R0_0.85to1_567Maxto1) <- colnames(ICLR_Submit_Feb2804_opt_1.1833)
+colnames(ICLR_Catboost_1700_1.1603) <- colnames(ICLR_Submit_Feb2804_opt_1.1833)
+
+
+
+ICLR_ensemble <- rbind(ICLR_Submit_Feb2804_opt_1.1833,ICLR_Submit_SMOTE_QhCpzd44_1700,
+                       Team0.9to1R0_0.85to1_567Maxto1,Team0.9to1R0_0.85to1_567Maxto1,
+                       Band_GE_0.9to1Rto0_0.85to1_Max56to1R0,
+                       Band_GE_0.9to1Rto0_0.85to1_Max56to1R0,ICLR_Catboost_1700_1.1603)#1.12721,ZKwCgKUL
+
+ICLR_ensemble <- ICLR_ensemble %>% group_by(Field_ID) %>% summarise_all(funs(mean))
+
+write.csv(ICLR_ensemble, file = "C:/Users/A221572/Documents/ICLR Crop detection Winning solution by Threshold Alchemi and DrFad/ICLR_ensemble.csv", row.names = F)
+
+```
+
+
+```{r}
+
+```
+

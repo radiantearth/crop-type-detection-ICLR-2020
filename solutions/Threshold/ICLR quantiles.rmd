@@ -1,0 +1,460 @@
+---
+title: "ICLR Crop detection"
+author: "Dr Fad"
+date: "Feb 17, 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Load libraries
+
+```{r cars}
+rm(list = ls())
+# library(keras)
+# library(tensorflow)
+library(EBImage)
+# use_condaenv("r-tensorflow")
+# install_keras()
+# library(sf)
+# library(spdep)
+library(rgdal)
+
+## Import packages
+library(ggplot2)
+library(gridExtra)
+library(repr)
+library(dplyr)
+library(caret)
+library(e1071)
+library(MLmetrics)
+library(klaR)
+library(gdalUtils)
+library(raster) #Manipulating geospatil images
+library(sqldf) #Running sql type of query
+library(Matrix) # For matrix conversion used for xgboost
+library(beepr) #For output sound
+library(stringi) #For text manipulation
+library(stringr) #For text manipulation
+library(lubridate) #For manipulating dates
+library(geosphere) #For getting distance from geospatial data i.e long and lat
+library(factoextra) #To visualise clusters
+library(fpc) # for computing density based clustering
+library(dbscan) # for computing density based clustering
+library(tictoc) #To calculate running time
+library(mapproj) #To map projections
+library(catboost) #For modelling
+library(Boruta)#For feature selection
+library(xgboost)
+library(Matrix)
+library(purrr)
+# library(lightgbm)
+library(ROCR) #Visualising performance of classifiers
+
+options(repr.plot.width=4, repr.plot.height=4)
+options(scipen=99999999) # Used to revoke display of scientific numbers
+```
+
+#Load data
+```{r}
+load("ICLR.rda")
+```
+
+# Subset NDVI
+Yes
+```{r}
+#Train
+ICLR_NDVI_train <- ICLR_train[,c(1,2,172:184)]
+
+#Prepare quantile calculations
+p <- c(0.2, 0.35, 0.65,0.9)
+p_names <- map_chr(p, ~paste0(.x*100, "pth"))
+p_funs <- map(p, ~partial(quantile, probs = .x, na.rm = TRUE)) %>%
+  set_names(nm = p_names)
+
+ICLR_NDVI_train <- ICLR_NDVI_train %>%
+                              group_by(Field_ID,label) %>%
+                              summarize_at( vars(NDVI_0606, NDVI_0701,NDVI_0706,NDVI_0711,
+                                                 NDVI_0721,NDVI_0805,NDVI_0815,NDVI_0825,
+                                                 NDVI_0909,NDVI_0919,NDVI_0924,NDVI_1004,
+                                                 NDVI_1103), funs(!!!p_funs))
+
+#test
+ICLR_NDVI_test <- ICLR_test[,c(1,2,172:184)]
+
+#Prepare quantile calculations
+p <- c(0.2, 0.35, 0.65,0.9)
+p_names <- map_chr(p, ~paste0(.x*100, "pth"))
+p_funs <- map(p, ~partial(quantile, probs = .x, na.rm = TRUE)) %>%
+  set_names(nm = p_names)
+
+ICLR_NDVI_test <- ICLR_NDVI_test %>%
+                              group_by(Field_ID,label) %>%
+                              summarize_at( vars(NDVI_0606, NDVI_0701,NDVI_0706,NDVI_0711,
+                                                 NDVI_0721,NDVI_0805,NDVI_0815,NDVI_0825,
+                                                 NDVI_0909,NDVI_0919,NDVI_0924,NDVI_1004,
+                                                 NDVI_1103), funs(!!!p_funs))
+
+save(ICLR_NDVI_train,ICLR_NDVI_test, file ="ICLR_NDVI.rda")
+
+```
+
+#NDRE5
+```{r}
+#Train
+ICLR_NDRE5_train <- ICLR_train[,c(1,185:197)]
+
+#Prepare quantile calculations
+p <- c(0.2, 0.35, 0.65,0.9)
+p_names <- map_chr(p, ~paste0(.x*100, "pth"))
+p_funs <- map(p, ~partial(quantile, probs = .x, na.rm = TRUE)) %>%
+  set_names(nm = p_names)
+
+ICLR_NDRE5_train <- ICLR_NDRE5_train %>%
+                              group_by(Field_ID) %>%
+                              summarize_at( vars(NDRE5_0606, NDRE5_0701,NDRE5_0706,NDRE5_0711,
+                                                 NDRE5_0721,NDRE5_0805,NDRE5_0815,NDRE5_0825,
+                                                 NDRE5_0909,NDRE5_0919,NDRE5_0924,NDRE5_1004,
+                                                 NDRE5_1103), funs(!!!p_funs))
+
+#test
+ICLR_NDRE5_test <- ICLR_test[,c(1,185:197)]
+
+#Prepare quantile calculations
+p <- c(0.2, 0.35, 0.65,0.9)
+p_names <- map_chr(p, ~paste0(.x*100, "pth"))
+p_funs <- map(p, ~partial(quantile, probs = .x, na.rm = TRUE)) %>%
+  set_names(nm = p_names)
+
+ICLR_NDRE5_test <- ICLR_NDRE5_test %>%
+                              group_by(Field_ID) %>%
+                              summarize_at( vars(NDRE5_0606, NDRE5_0701,NDRE5_0706,NDRE5_0711,
+                                                 NDRE5_0721,NDRE5_0805,NDRE5_0815,NDRE5_0825,
+                                                 NDRE5_0909,NDRE5_0919,NDRE5_0924,NDRE5_1004,
+                                                 NDRE5_1103), funs(!!!p_funs))
+
+save(ICLR_NDRE5_train,ICLR_NDRE5_test, file ="ICLR_NDRE5.rda")
+```
+
+#WDRVI
+198:210
+```{r}
+#Train
+ICLR_WDRVI_train <- ICLR_train[,c(1,198:210)]
+
+#Prepare quantile calculations
+p <- c(0.2, 0.35, 0.65,0.9)
+p_names <- map_chr(p, ~paste0(.x*100, "pth"))
+p_funs <- map(p, ~partial(quantile, probs = .x, na.rm = TRUE)) %>%
+  set_names(nm = p_names)
+
+ICLR_WDRVI_train <- ICLR_WDRVI_train %>%
+                              group_by(Field_ID) %>%
+                              summarize_at( vars(WDRVI_0606, WDRVI_0701,WDRVI_0706,WDRVI_0711,
+                                                 WDRVI_0721,WDRVI_0805,WDRVI_0815,WDRVI_0825,
+                                                 WDRVI_0909,WDRVI_0919,WDRVI_0924,WDRVI_1004,
+                                                 WDRVI_1103), funs(!!!p_funs))
+
+#test
+ICLR_WDRVI_test <- ICLR_test[,c(1,198:210)]
+
+#Prepare quantile calculations
+p <- c(0.2, 0.35, 0.65,0.9)
+p_names <- map_chr(p, ~paste0(.x*100, "pth"))
+p_funs <- map(p, ~partial(quantile, probs = .x, na.rm = TRUE)) %>%
+  set_names(nm = p_names)
+
+ICLR_WDRVI_test <- ICLR_WDRVI_test %>%
+                              group_by(Field_ID) %>%
+                              summarize_at( vars(WDRVI_0606, WDRVI_0701,WDRVI_0706,WDRVI_0711,
+                                                 WDRVI_0721,WDRVI_0805,WDRVI_0815,WDRVI_0825,
+                                                 WDRVI_0909,WDRVI_0919,WDRVI_0924,WDRVI_1004,
+                                                 WDRVI_1103), funs(!!!p_funs))
+
+save(ICLR_WDRVI_train,ICLR_WDRVI_test, file ="ICLR_WDRVI.rda")
+```
+211:223
+#NDRE7
+```{r}
+#Train
+ICLR_NDRE7_train <- ICLR_train[,c(1,211:223)]
+
+#Prepare quantile calculations
+p <- c(0.2, 0.35, 0.65,0.9)
+p_names <- map_chr(p, ~paste0(.x*100, "pth"))
+p_funs <- map(p, ~partial(quantile, probs = .x, na.rm = TRUE)) %>%
+  set_names(nm = p_names)
+
+ICLR_NDRE7_train <- ICLR_NDRE7_train %>%
+                              group_by(Field_ID) %>%
+                              summarize_at( vars(NDRE7_0606, NDRE7_0701,NDRE7_0706,NDRE7_0711,
+                                                 NDRE7_0721,NDRE7_0805,NDRE7_0815,NDRE7_0825,
+                                                 NDRE7_0909,NDRE7_0919,NDRE7_0924,NDRE7_1004,
+                                                 NDRE7_1103), funs(!!!p_funs))
+
+#test
+ICLR_NDRE7_test <- ICLR_test[,c(1,211:223)]
+
+#Prepare quantile calculations
+p <- c(0.2, 0.35, 0.65,0.9)
+p_names <- map_chr(p, ~paste0(.x*100, "pth"))
+p_funs <- map(p, ~partial(quantile, probs = .x, na.rm = TRUE)) %>%
+  set_names(nm = p_names)
+
+ICLR_NDRE7_test <- ICLR_NDRE7_test %>%
+                              group_by(Field_ID) %>%
+                              summarize_at( vars(NDRE7_0606, NDRE7_0701,NDRE7_0706,NDRE7_0711,
+                                                 NDRE7_0721,NDRE7_0805,NDRE7_0815,NDRE7_0825,
+                                                 NDRE7_0909,NDRE7_0919,NDRE7_0924,NDRE7_1004,
+                                                 NDRE7_1103), funs(!!!p_funs))
+
+save(ICLR_NDRE7_train,ICLR_NDRE7_test, file ="ICLR_NDRE7.rda")
+```
+
+#MTCI
+```{r}
+#Train
+ICLR_MTCI_train <- ICLR_train[,c(1,237:249)]
+
+#Prepare quantile calculations
+p <- c(0.2, 0.35, 0.65,0.9)
+p_names <- map_chr(p, ~paste0(.x*100, "pth"))
+p_funs <- map(p, ~partial(quantile, probs = .x, na.rm = TRUE)) %>%
+  set_names(nm = p_names)
+
+ICLR_MTCI_train <- ICLR_MTCI_train %>%
+                              group_by(Field_ID) %>%
+                              summarize_at( vars(MTCI_0606, MTCI_0701,MTCI_0706,MTCI_0711,
+                                                 MTCI_0721,MTCI_0805,MTCI_0815,MTCI_0825,
+                                                 MTCI_0909,MTCI_0919,MTCI_0924,MTCI_1004,
+                                                 MTCI_1103), funs(!!!p_funs))
+
+#test
+ICLR_MTCI_test <- ICLR_test[,c(1,237:249)]
+
+#Prepare quantile calculations
+p <- c(0.2, 0.35, 0.65,0.9)
+p_names <- map_chr(p, ~paste0(.x*100, "pth"))
+p_funs <- map(p, ~partial(quantile, probs = .x, na.rm = TRUE)) %>%
+  set_names(nm = p_names)
+
+ICLR_MTCI_test <- ICLR_MTCI_test %>%
+                              group_by(Field_ID) %>%
+                              summarize_at( vars(MTCI_0606, MTCI_0701,MTCI_0706,MTCI_0711,
+                                                 MTCI_0721,MTCI_0805,MTCI_0815,MTCI_0825,
+                                                 MTCI_0909,MTCI_0919,MTCI_0924,MTCI_1004,
+                                                 MTCI_1103), funs(!!!p_funs))
+
+save(ICLR_MTCI_train,ICLR_MTCI_test, file ="ICLR_MTCI.rda")
+```
+250:262
+#SAVI
+```{r}
+#Train
+ICLR_SAVI_train <- ICLR_train[,c(1,276:288)]
+
+#Prepare quantile calculations
+p <- c(0.2, 0.35, 0.65,0.9)
+p_names <- map_chr(p, ~paste0(.x*100, "pth"))
+p_funs <- map(p, ~partial(quantile, probs = .x, na.rm = TRUE)) %>% 
+  set_names(nm = p_names)
+
+ICLR_SAVI_train <- ICLR_SAVI_train %>% 
+                              group_by(Field_ID) %>% 
+                              summarize_at( vars(SAVI_0606, SAVI_0701,SAVI_0706,SAVI_0711,
+                                                 SAVI_0721,SAVI_0805,SAVI_0815,SAVI_0825,
+                                                 SAVI_0909,SAVI_0919,SAVI_0924,SAVI_1004,
+                                                 SAVI_1103), funs(!!!p_funs))
+
+#test
+ICLR_SAVI_test <- ICLR_test[,c(1,276:288)]
+
+#Prepare quantile calculations
+p <- c(0.2, 0.35, 0.65,0.9)
+p_names <- map_chr(p, ~paste0(.x*100, "pth"))
+p_funs <- map(p, ~partial(quantile, probs = .x, na.rm = TRUE)) %>% 
+  set_names(nm = p_names)
+
+ICLR_SAVI_test <- ICLR_SAVI_test %>% 
+                              group_by(Field_ID) %>% 
+                              summarize_at( vars(SAVI_0606, SAVI_0701,SAVI_0706,SAVI_0711,
+                                                 SAVI_0721,SAVI_0805,SAVI_0815,SAVI_0825,
+                                                 SAVI_0909,SAVI_0919,SAVI_0924,SAVI_1004,
+                                                 SAVI_1103), funs(!!!p_funs))
+
+save(ICLR_SAVI_train,ICLR_SAVI_test, file ="ICLR_SAVI.rda")
+beep(6)
+```
+
+#Combine all quantiles
+```{r}
+rm(list=ls())
+load("ICLR_SAVI.rda")
+load("ICLR_MTCI.rda")
+load("ICLR_NDVI.rda")
+load("ICLR_NDRE5.rda")
+load("ICLR_NDRE7.rda")
+load("ICLR_WDRVI.rda")
+load("ICLR_MTCI.rda")
+load("ICLR.rda")
+
+ICLR_train <- merge(ICLR_NDRE5_train,ICLR_NDVI_train, by="Field_ID",all.y=T)
+ICLR_train <- merge(ICLR_WDRVI_train,ICLR_train, by="Field_ID",all.y=T)
+ICLR_train <- merge(ICLR_NDRE7_train,ICLR_train, by="Field_ID",all.y=T)
+ICLR_train <- merge(ICLR_MTCI_train,ICLR_train, by="Field_ID",all.y=T)
+ICLR_train <- merge(ICLR_SAVI_train,ICLR_train, by="Field_ID",all.y=T)
+
+ICLR_test <- merge(ICLR_NDRE5_test,ICLR_NDVI_test, by="Field_ID",all.y=T)
+ICLR_test <- merge(ICLR_WDRVI_test,ICLR_test, by="Field_ID",all.y=T)
+ICLR_test <- merge(ICLR_NDRE7_test,ICLR_test, by="Field_ID",all.y=T)
+ICLR_test <- merge(ICLR_MTCI_test,ICLR_test, by="Field_ID",all.y=T)
+ICLR_test <- merge(ICLR_SAVI_test,ICLR_test, by="Field_ID",all.y=T)
+
+# #To ensure field_ID and label are cols 1 n 2
+ICLR_train <- ICLR_train %>% group_by(Field_ID,label) %>% summarise_all(funs(mean))
+ICLR_test <- ICLR_test %>% group_by(Field_ID,label) %>% summarise_all(funs(mean))
+table(ICLR_train$label)
+ICLR_train <- as.data.frame(ICLR_train)
+ICLR_test <- as.data.frame(ICLR_test)
+```
+
+Dropped VDVI
+#Data Exploration
+```{r}
+# visual <- ICLR_train
+# visual$label <- factor(visual$label)
+# plot_box <- function(df, cols, col_x = 'label'){
+#   options(repr.plot.width = 4, repr.plot.height = 3.5)
+#   for(col in cols){
+#     p = ggplot(df, aes_string(col_x,col)) +
+#       geom_boxplot() +
+#       ggtitle(paste('Box plot of ', col, '\n vs. ', col_x))
+#     print(p)
+#   }
+# }
+# 
+# num_cols = colnames(visual[,c(1:314)])
+# plot_box(visual, num_cols)
+```
+#Cross validation or xgboost
+
+```{r}
+library(ggplot2) # Data visualization
+library(data.table)
+library(xgboost)
+library(caret)
+library(Matrix)
+
+
+#Remove Field ID from train features
+Train_XG <- ICLR_train[,-c(1)]
+# Train_XG <- ICLR_train
+
+table(Train_XG$label)
+Test_XG <- ICLR_test[,-c(1,2)]
+
+train = Train_XG #training partition
+
+#Create Matrix
+dtrain <- sparse.model.matrix(label ~ . -1, data = train)
+feature_names <- names(dtrain)
+target <- as.numeric(train[,"label"])-1
+dtrain <- xgb.DMatrix( data = as.matrix(dtrain), label = target, missing= NA)
+
+###################
+#XG Boost setup 
+###################
+
+dtest_F <- xgb.DMatrix(data=as.matrix( Test_XG))
+
+###################
+#Cross Validation
+###################
+# Set up cross-validation scheme (3-fold)
+foldsCV <- createFolds(target, k=5, list=TRUE, returnTrain=FALSE)
+
+
+  param <- list(booster = "gbtree"
+              , objective = "multi:softprob"
+              , subsample = 0.85 #0.8
+              , max_depth = 3
+              , colsample_bytree = 0.95 #0.95,1
+              , eta = 0.032
+              #, lambda = 0.08
+              , eval_metric = 'mlogloss'
+              , num_class = 7
+              , gamma = 0
+              #, base_score = 0.012 #average
+              , min_child_weight = 2#2,16
+                )
+# xgb_cv <- xgb.cv(data=dtrain,
+#                    params=param,
+#                   nrounds=500,
+#                   prediction=TRUE,
+#                   maximize=FALSE,
+#                   folds=foldsCV,
+#                   early_stopping_rounds = 20,
+#                   print_every_n = 5
+#   )
+
+
+  # Check best results and get best nrounds
+  # print(xgb_cv$evaluation_log[which.min(xgb_cv$evaluation_log$test_mae_mean)])
+# nrounds <- xgb_cv$best_iteration
+```
+
+
+```{r}
+
+  ################
+  # Final model
+  ################
+  set.seed(987654321)
+  xgb <- xgboost::xgboost(params = param
+                   , data = dtrain
+                  # , watchlist = list(train = dtrain)
+                   , nrounds = 500#500,751
+                   , verbose = 1
+                   , print_every_n = 2
+                   #, feval = amm_mae
+                  )
+  ###############
+  # Results
+  ###############
+  #Feature imprtance
+  imp <- xgb.importance(feature_names, model =xgb)
+  imp
+  xgb.plot.importance(imp)
+  # imp$Feature
+  ft_subset <- imp$Feature[c(1:8)]
+  ft_subset9 <- imp$Feature[c(1:9)]
+
+```
+#ICLR top 8 quatiles
+```{r}
+# ICLR_qt_train <- ICLR_train[,c("Field_ID","SAVI_0825_20pth","NDRE5_0825_35pth","MTCI_1004_90pth",
+#                                "MTCI_1004_65pth","NDRE5_0825_65pth","SAVI_0919_20pth","MTCI_0919_90pth",
+#                                "MTCI_1004_35pth")]
+# 
+# ICLR_qt_test <- ICLR_test[,c("Field_ID","SAVI_0825_20pth","NDRE5_0825_35pth","MTCI_1004_90pth",
+#                                "MTCI_1004_65pth","NDRE5_0825_65pth","SAVI_0919_20pth","MTCI_0919_90pth",
+#                                "MTCI_1004_35pth")]
+# 
+# save(ICLR_qt_train,ICLR_qt_test, file="ICLR_qt.rda")
+```
+
+#ICLR top n quatiles
+```{r}
+ICLR_qt_train <- ICLR_train[,c("Field_ID",ft_subset)]
+
+ICLR_qt_test <- ICLR_test[,c("Field_ID",ft_subset)]
+
+save(ICLR_qt_train,ICLR_qt_test, file="ICLR_qt8.rda")
+```
+
+
+```{r}
+
+```
+
