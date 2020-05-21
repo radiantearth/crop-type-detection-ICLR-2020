@@ -1,6 +1,6 @@
-# First Place Overall
+# First Place Award
 
-This solution acheived the top score in the competiton. 
+This solution won the **First place overall award** and acheived the top score of 1.102264609 in the competiton. 
 
 ## Winner
 
@@ -28,7 +28,7 @@ Thirdly, you need to install the dependencies by running:
 pip3 install -r requirements.txt
 ```
 
-## Running
+## How to Run
 
 ### Dataset Preparation
 
