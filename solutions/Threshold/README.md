@@ -1,6 +1,6 @@
 # Third place overall award
 
-This solution won the **Third place overall award** and achieved the top score of 1.176934328 in the competiton. 
+This solution won the **Third place overall award** and achieved the fourth top score of 1.176934328 in the competiton. 
 
 ## Winners
 
