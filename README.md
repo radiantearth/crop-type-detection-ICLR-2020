@@ -7,11 +7,18 @@ The dataset contains a total of more than 4,000 fields. The satellite imagery in
 
 Western Kenya, where the data was collected is dominated by smallholder farms, which is common across Africa, and poses a challenge to build crop type classification from Sentinel-2 data. Moreover, the training dataset has a significant class imbalance.
 
-This competition was part of the Computer Vision for Agriculture (CV4A) Workshop at the 2020 ICLR conference and was designed and organized by Radiant Earth Foundation with support from PlantVillage in providing the ground reference data. Competition was run by Zindi on their platfrom ([competition link ](https://zindi.africa/competitions/iclr-workshop-challenge-2-radiant-earth-computer-vision-for-crop-recognition/data))
+This competition was part of the Computer Vision for Agriculture (CV4A) Workshop at the 2020 ICLR conference and was designed and organized by Radiant Earth Foundation with support from PlantVillage in providing the ground reference data. Competition was run by Zindi on their platfrom ([competition link](https://zindi.africa/competitions/iclr-workshop-challenge-2-radiant-earth-computer-vision-for-crop-recognition/data))
 
 
 ## Results
 
+|Team 	| Competition Score 	| Overall Accuracy 	|
+------------------------------------------------------
+|KarimAmer 	| 1.102264609 		|  |
+|youngtard 	| 1.168877091 		|  |
+|Be_CarEFuL 	| 1.174099923 		|  |
+|Threshold 	| 1.176934328 		|  |
+|AnsemChaieb 	| 1.177508763 		|  |
 
 ## About Radiant Earth Foundation
 
