@@ -1,12 +1,19 @@
 # Crop Type Detection Challenge at CV4A Workshop, ICLR 2020
 
 
-This challenge aimed to create a machine learning model to classify fields by crop type from images collected during the growing season by the Sentinel-2 satellite.The dataset contains a total of more than 4,000 field images contains 12 bands of observations from Sentinel-2 L2A product (observations in the ultra-blue, blue, green, red; visible and near-infrared (VNIR); and short wave infrared (SWIR) spectra), as well as a cloud probability layer. The bands are mapped to a common 10mx10m spatial resolution grid.  
-[Challenge link ](https://zindi.africa/competitions/iclr-workshop-challenge-2-radiant-earth-computer-vision-for-crop-recognition/data)
+The objective of this competition was to create a machine learning model to classify fields by crop type from images collected during the growing season by the Sentinel-2 satellite. The ground reference data used to generate the training dataset are from  western Kenya, and collected by the PlantVillage team.
+
+The dataset contains a total of more than 4,000 fields. The satellite imagery includes 12 bands of observations from Sentinel-2 L2A product (observations in the ultra-blue, blue, green, red; visible and near-infrared (VNIR); and short wave infrared (SWIR) spectra), as well as a cloud probability layer. The bands are mapped to a common 10x10m spatial resolution grid.
+
+Western Kenya, where the data was collected is dominated by smallholder farms, which is common across Africa, and poses a challenge to build crop type classification from Sentinel-2 data. Moreover, the training dataset has a significant class imbalance.
+
+This competition was part of the Computer Vision for Agriculture (CV4A) Workshop at the 2020 ICLR conference and was designed and organized by Radiant Earth Foundation with support from PlantVillage in providing the ground reference data. Competition was run by Zindi on their platfrom ([competition link ](https://zindi.africa/competitions/iclr-workshop-challenge-2-radiant-earth-computer-vision-for-crop-recognition/data))
 
 
+## Results
 
-## About Radiant Earth
+
+## About Radiant Earth Foundation
 
 <img src="/_figures/radiantearth.png" width="305" height="88">
 
