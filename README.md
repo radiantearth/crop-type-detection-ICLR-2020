@@ -8,7 +8,7 @@ This challenge aimed to create a machine learning model to classify fields by cr
 
 ## About Radiant Earth
 
-![Radiant Logo](/_figures/radiantearth.png){:height="40%" width="40%"}
+![Radiant Logo](/_figures/radiantearth.png | width=50)
 
 Founded in 2016, [Radiant Earth Foundation](www.radiant.earth) is a nonprofit organization focused on empowering organizations and individuals globally with open Machine Learning (ML) and Earth observations (EO) data, standards and tools to address the world’s most critical international development challenges. With broad experience as a neutral entity working with commercial, academic, governmental and non-governmental partners to expand EO data and information used in the global development sector, Radiant Earth Foundation recognizes the opportunity that exists today to advance new applications and products through use of ML.
 
