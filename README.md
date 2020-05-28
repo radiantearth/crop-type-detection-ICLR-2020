@@ -42,14 +42,13 @@ To fill this need, Radiant Earth has established Radiant MLHub as an open ML com
 
 ## About PlantVillage
 
-![PlantVillage Logo](/_figures/plantvillage.png)
+<img src="/_figures/plantvillage.png" width="305">
 
 [PlantVillage](plantvillage.psu.edu) is a research and development unit of Penn State University that empowers smallholder farmers and seeks to lift them out of poverty using cheap, affordable technology and democratizing the access to knowledge that can help them grow more food.
 
 ## About Zindi
 
-![Zindi Logo](/_figures/zindi.png)
-
+<img src="/_figures/zindi.png" width="305">
 
 [Zindi](https://zindi.africa/) is Africa’s first and largest data science competition platform, growing and supporting an entire data science and AI ecosystem of scientists, engineers, academics, companies, NGOs, governments and institutions.
 
