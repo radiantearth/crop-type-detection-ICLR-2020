@@ -21,13 +21,13 @@ The following table shows the competition scores for the winners. We have also i
 Note: The accuracy scores are not final yet.
 
 
-|Team 	| Competition Score 	| Overall Accuracy 	| Crop 1| Crop 2| Crop 3| Crop 4| Crop 5| Crop 6| Crop 7|
+|Team 	| Competition Score 	| Overall Accuracy 	| Maize| Cassava| Common Bean| Maize & Common Bean (intercropping)| Maize & Cassava (intercropping)| Maize & Soybean (intercropping)| Cassava & Common Bean (intercropping)|
 |-------|-----------------------|-------------------|-------|-------|-------|-------|-------|-------|-------|
-|KarimAmer 	| 1.102264609 		| 58.57 | 80.31 | 78.2 | 23.81 | 16.04 | 0.0 | 0.0 | 0.0 |
-|youngtard 	| 1.168877091 		| 56.41 | 83.15 | 65.4 | 9.52 | 14.62 | 2.63 | 2.9 | 8.57 |
-|Be_CarEFuL 	| 1.174099923 	|  | | | | | | | |
-|Threshold 	| 1.176934328 		|  | | | | | | | |
-|AnsemChaieb 	| 1.177508763 	| 61.63 | 88.35 | 78.47 | 4.76 | 14.62 | 1.32 | 1.45 | 2.86 |
+|KarimAmer 	| 1.102264609 		| 60.0 | 81.6 | 81.8 | 23.8 | 16.3 | 0.0 | 0.0|
+|youngtard 	| 1.168877091 		| 57.8 | 84.5 | 68.4 | 9.5 | 14.8 | 2.7 | 3.0 |
+|Be_CarEFuL 	| 1.174099923 	| 58.9 | 87.5 | 66.4 | 23.8 | 14.8 | 2.7 | 0.0 |
+|Threshold 	| 1.176934328 		| 58.5 | 85.9 | 68.7 | 9.5 | 15.8 | 0.0 | 3.0 |
+|AnsemChaieb 	| 1.177508763 	| 63.1 | 89.8 | 82.1 | 4.8 | 14.8 | 1.4 | 1.5 |
 
 ## About Radiant Earth Foundation
 
