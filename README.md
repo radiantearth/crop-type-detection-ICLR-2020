@@ -3,22 +3,20 @@
 
 The objective of this competition was to create a machine learning model to classify fields by crop type from images collected during the growing season by the Sentinel-2 satellite. The ground reference data used to generate the training dataset are from  western Kenya, and collected by the PlantVillage team.
 
-The dataset contained a total of more than 4,000 fields. The satellite imagery includes 12 bands of observations from Sentinel-2 L2A product (observations in the ultra-blue, blue, green, red; visible and near-infrared (VNIR); and short wave infrared (SWIR) spectra), as well as a cloud probability layer. The bands are mapped to a common 10x10m spatial resolution grid.
+The dataset contained a total of more than 4,000 fields. The satellite imagery includes 12 bands of observations from Sentinel-2 L2A product (observations in the ultra-blue, blue, green, red; visible and near-infrared (VNIR); and shortwave infrared (SWIR) spectra), as well as a cloud probability layer. The bands are mapped to a common 10x10m spatial resolution grid.
 
 Western Kenya, where the data was collected is dominated by smallholder farms, which is common across Africa, and poses a challenge to build crop type classification from Sentinel-2 data. Moreover, the training dataset has a significant class imbalance.
 
-This competition was part of the [Computer Vision for Agriculture (CV4A) Workshop](https://www.cv4gc.org/cv4a2020/) at the 2020 ICLR conference and was designed and organized by [Radiant Earth Foundation](www.radiant.earth) with support from [PlantVillage](plantvillage.psu.edu) in providing the ground reference data. Competition was run by [Zindi](https://zindi.africa/) on their platfrom ([competition link](https://zindi.africa/competitions/iclr-workshop-challenge-2-radiant-earth-computer-vision-for-crop-recognition/data))
+This competition was part of the [Computer Vision for Agriculture (CV4A) Workshop](https://www.cv4gc.org/cv4a2020/) at the 2020 ICLR conference and was designed and organized by [Radiant Earth Foundation](www.radiant.earth) with support from [PlantVillage](plantvillage.psu.edu) in providing the ground reference data. Competition was run by [Zindi](https://zindi.africa/) on their platform ([competition link](https://zindi.africa/competitions/iclr-workshop-challenge-2-radiant-earth-computer-vision-for-crop-recognition/data))
 
 
-## Results
+## Results and Solutions
 
 The evaluation metric for the competition was Cross Entropy with binary outcome for each crop:
 
 ![cost function](/_figures/cost_function.png)
 
-The following table shows the competition scores for the winners. We have also included Overall Accuracry score as well as the accuracy score for each crop type (these were not used to rank the submissions). 
-
-Note: The accuracy scores are not final yet.
+The following table shows the competition scores of the award winners. We have also included Overall Accuracy score (%) as well as the accuracy score (%) for each crop type separately. These were not used to rank the submissions, and main criteria metric was the Cross Entropy function.  
 
 
 |Team 	| Competition Score 	| Overall Accuracy 	| Maize| Cassava| Common Bean| Maize & Common Bean (intercropping)| Maize & Cassava (intercropping)| Maize & Soybean (intercropping)| Cassava & Common Bean (intercropping)|
@@ -28,6 +26,10 @@ Note: The accuracy scores are not final yet.
 |Be_CarEFuL 	| 1.174099923 	| 58.9 | 87.5 | 66.4 | 23.8 | 14.8 | 2.7 | 0.0 | 8.8|
 |Threshold 	| 1.176934328 		| 58.5 | 85.9 | 68.7 | 9.5 | 15.8 | 0.0 | 3.0 | 8.8|
 |AnsemChaieb 	| 1.177508763 	| 63.1 | 89.8 | 82.1 | 4.8 | 14.8 | 1.4 | 1.5 | 2.9|
+
+
+Source code of each of the winners is included in the [solutions](/solutions/) folder. 
+
 
 ## About Radiant Earth Foundation
 
@@ -44,7 +46,7 @@ To fill this need, Radiant Earth has established Radiant MLHub as an open ML com
 
 [PlantVillage](plantvillage.psu.edu) is a research and development unit of Penn State University that empowers smallholder farmers and seeks to lift them out of poverty using cheap, affordable technology and democratizing the access to knowledge that can help them grow more food.
 
-## Abount Zindi
+## About Zindi
 
 ![Zindi Logo](/_figures/zindi.png)
 
