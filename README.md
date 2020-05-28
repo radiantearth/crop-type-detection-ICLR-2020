@@ -48,7 +48,7 @@ To fill this need, Radiant Earth has established Radiant MLHub as an open ML com
 
 ## About Zindi
 
-<img src="/_figures/zindi.png" width="305">
+![Zindi Logo](/_figures/zindi.png)
 
 [Zindi](https://zindi.africa/) is Africa’s first and largest data science competition platform, growing and supporting an entire data science and AI ecosystem of scientists, engineers, academics, companies, NGOs, governments and institutions.
 
