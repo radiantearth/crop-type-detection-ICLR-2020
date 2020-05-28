@@ -23,11 +23,11 @@ Note: The accuracy scores are not final yet.
 
 |Team 	| Competition Score 	| Overall Accuracy 	| Maize| Cassava| Common Bean| Maize & Common Bean (intercropping)| Maize & Cassava (intercropping)| Maize & Soybean (intercropping)| Cassava & Common Bean (intercropping)|
 |-------|-----------------------|-------------------|-------|-------|-------|-------|-------|-------|-------|
-|KarimAmer 	| 1.102264609 		| 60.0 | 81.6 | 81.8 | 23.8 | 16.3 | 0.0 | 0.0|
-|youngtard 	| 1.168877091 		| 57.8 | 84.5 | 68.4 | 9.5 | 14.8 | 2.7 | 3.0 |
-|Be_CarEFuL 	| 1.174099923 	| 58.9 | 87.5 | 66.4 | 23.8 | 14.8 | 2.7 | 0.0 |
-|Threshold 	| 1.176934328 		| 58.5 | 85.9 | 68.7 | 9.5 | 15.8 | 0.0 | 3.0 |
-|AnsemChaieb 	| 1.177508763 	| 63.1 | 89.8 | 82.1 | 4.8 | 14.8 | 1.4 | 1.5 |
+|KarimAmer 	| 1.102264609 		| 60.0 | 81.6 | 81.8 | 23.8 | 16.3 | 0.0 | 0.0| 0.0|
+|youngtard 	| 1.168877091 		| 57.8 | 84.5 | 68.4 | 9.5 | 14.8 | 2.7 | 3.0 | 8.8|
+|Be_CarEFuL 	| 1.174099923 	| 58.9 | 87.5 | 66.4 | 23.8 | 14.8 | 2.7 | 0.0 | 8.8|
+|Threshold 	| 1.176934328 		| 58.5 | 85.9 | 68.7 | 9.5 | 15.8 | 0.0 | 3.0 | 8.8|
+|AnsemChaieb 	| 1.177508763 	| 63.1 | 89.8 | 82.1 | 4.8 | 14.8 | 1.4 | 1.5 | 2.9|
 
 ## About Radiant Earth Foundation
 
