@@ -16,7 +16,7 @@ The evaluation metric for the competition was Cross Entropy with binary outcome 
 
 ![cost function](/_figures/cost_function.png)
 
-The following table shows the competition scores of the award winners. We have also included Overall Accuracy score (%) as well as the accuracy score (%) for each crop type separately. These were not used to rank the submissions, and main criteria metric was the Cross Entropy function.  
+The following table shows the competition scores of the award winners. We have also included Overall Accuracy score (%) as well as the accuracy score (%) for each crop type separately. These were not used to rank the submissions, and the main competition metric was the Cross Entropy function.  
 
 
 |Team 	| Competition Score 	| Overall Accuracy 	| Maize| Cassava| Common Bean| Maize & Common Bean (intercropping)| Maize & Cassava (intercropping)| Maize & Soybean (intercropping)| Cassava & Common Bean (intercropping)|
